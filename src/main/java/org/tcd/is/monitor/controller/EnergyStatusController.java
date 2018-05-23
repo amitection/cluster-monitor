@@ -16,7 +16,7 @@ import org.tcd.is.monitor.services.EnergyStatusService;
 import org.tcd.is.monitor.utils.JsonUtils;
 
 @RestController
-@RequestMapping(value = "/energy/trasaction")
+@RequestMapping(value = "/energy/status")
 public class EnergyStatusController {
 
 	Logger logger = LoggerFactory.getLogger(EnergyStatusController.class);

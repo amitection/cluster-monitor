@@ -1,5 +1,7 @@
 package org.tcd.is.monitor.model.entities;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,13 +17,15 @@ public class Summary {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	private Date timestamp;
+	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="agent_id", nullable=false)
 	private Agent agent;
 	
-	private Long generation;
+	private Double generation;
 	
-	private Long consumption;
+	private Double consumption;
 
 	public Long getId() {
 		return id;
@@ -29,6 +33,14 @@ public class Summary {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public Agent getAgent() {
@@ -39,19 +51,19 @@ public class Summary {
 		this.agent = agent;
 	}
 
-	public Long getGeneration() {
+	public Double getGeneration() {
 		return generation;
 	}
 
-	public void setGeneration(Long generation) {
+	public void setGeneration(Double generation) {
 		this.generation = generation;
 	}
 
-	public Long getConsumption() {
+	public Double getConsumption() {
 		return consumption;
 	}
 
-	public void setConsumption(Long consumption) {
+	public void setConsumption(Double consumption) {
 		this.consumption = consumption;
 	}
 }

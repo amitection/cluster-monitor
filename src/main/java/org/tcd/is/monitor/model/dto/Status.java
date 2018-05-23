@@ -2,11 +2,21 @@ package org.tcd.is.monitor.model.dto;
 
 public class Status {
 	
+	private String timestamp;
+	
 	private Long agentId;
 	
-	private Long energyGeneration;
+	private Double energyGeneration;
 	
-	private Long energyConsumption;
+	private Double energyConsumption;
+
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
 
 	public Long getAgentId() {
 		return agentId;
@@ -16,19 +26,19 @@ public class Status {
 		this.agentId = agentId;
 	}
 
-	public Long getEnergyGeneration() {
+	public Double getEnergyGeneration() {
 		return energyGeneration;
 	}
 
-	public void setEnergyGeneration(Long energyGeneration) {
+	public void setEnergyGeneration(Double energyGeneration) {
 		this.energyGeneration = energyGeneration;
 	}
 
-	public Long getEnergyConsumption() {
+	public Double getEnergyConsumption() {
 		return energyConsumption;
 	}
 
-	public void setEnergyConsumption(Long energyConsumption) {
+	public void setEnergyConsumption(Double energyConsumption) {
 		this.energyConsumption = energyConsumption;
 	}
 }

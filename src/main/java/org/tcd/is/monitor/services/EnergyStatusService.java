@@ -1,7 +1,14 @@
 package org.tcd.is.monitor.services;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tcd.is.monitor.model.dto.Status;
@@ -12,11 +19,22 @@ import org.tcd.is.monitor.repository.SummaryRepository;
 @Service
 public class EnergyStatusService {
 
+	Logger logger = LoggerFactory.getLogger(EnergyStatusService.class);
+	
 	@Autowired
 	private SummaryRepository summaryRepository;
 	
 	public void updateEnergyStatus(Status status) {
 		Summary summary = summaryRepository.findByAgentId(status.getAgentId());
+		
+		try {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date timestamp = df.parse(status.getTimestamp());
+			summary.setTimestamp(timestamp);
+		} catch (ParseException e) {
+			logger.error("",e);
+		}
+		
 		summary.setConsumption(summary.getConsumption() + status.getEnergyConsumption());
 		summary.setGeneration(summary.getGeneration() + status.getEnergyGeneration());
 		
@@ -32,8 +50,8 @@ public class EnergyStatusService {
 	public void createNewEntry(Agent agent) {
 		Summary summary = new Summary();
 		summary.setAgent(agent);
-		summary.setConsumption(0L);
-		summary.setGeneration(0L);
+		summary.setConsumption(0.0);
+		summary.setGeneration(0.0);
 		
 		summaryRepository.save(summary);
 	}
