@@ -41,7 +41,7 @@ public class EnergyTransactionService {
 		}
 
 		et.setSeller(agentRepository.findOne(transactionDto.getSellerId()));
-		et.setBuyer(agentRepository.findOne(transactionDto.getBuyerId()));
+		et.setBuyer(agentRepository.findByName(transactionDto.getBuyerName()));
 		et.setAmount(transactionDto.getAmount());
 		et.setPrice(transactionDto.getPrice());
 

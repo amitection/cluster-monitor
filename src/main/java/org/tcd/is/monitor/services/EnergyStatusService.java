@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -54,5 +55,18 @@ public class EnergyStatusService {
 		summary.setGeneration(0.0);
 		
 		summaryRepository.save(summary);
+	}
+	
+	public Summary getGridStatus() {
+		List<Summary> summaries = summaryRepository.findAll();
+		Summary gridStatus = new Summary();
+		for (Summary agentSummary : summaries) {
+			gridStatus.setConsumption(gridStatus.getConsumption() + agentSummary.getConsumption());
+			gridStatus.setGeneration(gridStatus.getGeneration() + agentSummary.getGeneration());
+		}
+		
+		gridStatus.setId(-1L);
+		
+		return gridStatus;
 	}
 }

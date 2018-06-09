@@ -24,6 +24,14 @@ public class EnergyStatusController {
 	@Autowired
 	private EnergyStatusService energyStatusService;
 	
+	@RequestMapping(path="/{grid}", method = RequestMethod.GET, produces = "application/json")
+	private ResponseEntity<String> getGridStatus() {
+		
+		Summary summary = energyStatusService.getGridStatus();
+		logger.info("Grid status retrieved successfully.");
+		return JsonUtils.getJsonForResponse(summary);
+	}
+	
 	/**
 	 * Method that updates the Summary table with the latest Energy information sent by a Agent
 	 * @param status

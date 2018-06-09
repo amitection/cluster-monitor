@@ -7,7 +7,7 @@ public class EnergyTransactionDto {
 
 	private Long sellerId;
 	
-	private Long buyerId;
+	private String buyerName;
 	
 	private Double price;
 	
@@ -29,12 +29,12 @@ public class EnergyTransactionDto {
 		this.sellerId = sellerId;
 	}
 
-	public Long getBuyerId() {
-		return buyerId;
+	public String getBuyerName() {
+		return buyerName;
 	}
 
-	public void setBuyerId(Long buyerId) {
-		this.buyerId = buyerId;
+	public void setBuyerName(String buyerName) {
+		this.buyerName = buyerName;
 	}
 
 	public Double getPrice() {
