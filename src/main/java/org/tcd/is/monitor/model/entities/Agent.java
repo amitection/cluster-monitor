@@ -20,8 +20,8 @@ public class Agent {
 	@Column(unique=true, nullable= false)
 	private String name;
 	
-	@Column(unique=true, nullable= false)
-	private String msgQueueName;
+//	@Column(unique=true, nullable= false)
+//	private String msgQueueName;
 	
 	private boolean active;
 	
@@ -45,13 +45,13 @@ public class Agent {
 		this.name = name;
 	}
 
-	public String getMsgQueueName() {
-		return msgQueueName;
-	}
-
-	public void setMsgQueueName(String msgQueueName) {
-		this.msgQueueName = msgQueueName;
-	}
+//	public String getMsgQueueName() {
+//		return msgQueueName;
+//	}
+//
+//	public void setMsgQueueName(String msgQueueName) {
+//		this.msgQueueName = msgQueueName;
+//	}
 
 	public boolean isActive() {
 		return active;

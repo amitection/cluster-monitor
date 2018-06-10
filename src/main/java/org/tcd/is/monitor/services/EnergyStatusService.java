@@ -21,52 +21,54 @@ import org.tcd.is.monitor.repository.SummaryRepository;
 public class EnergyStatusService {
 
 	Logger logger = LoggerFactory.getLogger(EnergyStatusService.class);
-	
+
 	@Autowired
 	private SummaryRepository summaryRepository;
-	
+
 	public void updateEnergyStatus(Status status) {
 		Summary summary = summaryRepository.findByAgentId(status.getAgentId());
-		
+
 		try {
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date timestamp = df.parse(status.getTimestamp());
 			summary.setTimestamp(timestamp);
 		} catch (ParseException e) {
-			logger.error("",e);
+			logger.error("", e);
 		}
-		
+
 		summary.setConsumption(summary.getConsumption() + status.getEnergyConsumption());
 		summary.setGeneration(summary.getGeneration() + status.getEnergyGeneration());
-		
+
 		summaryRepository.save(summary);
 	}
-	
+
 	public Summary getEnergyStatus(Long agentId) {
 		Summary summary = summaryRepository.findByAgentId(agentId);
 		return summary;
 	}
-	
+
 	@Transactional
 	public void createNewEntry(Agent agent) {
 		Summary summary = new Summary();
 		summary.setAgent(agent);
 		summary.setConsumption(0.0);
 		summary.setGeneration(0.0);
-		
+
 		summaryRepository.save(summary);
 	}
-	
+
 	public Summary getGridStatus() {
 		List<Summary> summaries = summaryRepository.findAll();
 		Summary gridStatus = new Summary();
+		gridStatus.setConsumption(0.0);
+		gridStatus.setGeneration(0.0);
 		for (Summary agentSummary : summaries) {
 			gridStatus.setConsumption(gridStatus.getConsumption() + agentSummary.getConsumption());
 			gridStatus.setGeneration(gridStatus.getGeneration() + agentSummary.getGeneration());
 		}
-		
+
 		gridStatus.setId(-1L);
-		
+
 		return gridStatus;
 	}
 }

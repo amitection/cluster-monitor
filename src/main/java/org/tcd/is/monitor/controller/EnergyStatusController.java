@@ -24,7 +24,7 @@ public class EnergyStatusController {
 	@Autowired
 	private EnergyStatusService energyStatusService;
 	
-	@RequestMapping(path="/{grid}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(path="/grid", method = RequestMethod.GET, produces = "application/json")
 	private ResponseEntity<String> getGridStatus() {
 		
 		Summary summary = energyStatusService.getGridStatus();
@@ -37,7 +37,7 @@ public class EnergyStatusController {
 	 * @param status
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	@RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
 	public ResponseEntity<String> updateEnergyStatus(@RequestBody Status status) {
 		
 		energyStatusService.updateEnergyStatus(status);

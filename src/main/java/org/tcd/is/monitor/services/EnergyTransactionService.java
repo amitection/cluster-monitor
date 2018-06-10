@@ -33,7 +33,7 @@ public class EnergyTransactionService {
 		EnergyTransaction et = new EnergyTransaction();
 
 		try {
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date timestamp = df.parse(transactionDto.getTimestamp());
 			et.setTimestamp(timestamp);
 		} catch (ParseException e) {
