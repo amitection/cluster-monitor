@@ -29,7 +29,7 @@ public class EnergyStatusService {
 		Summary summary = summaryRepository.findByAgentId(status.getAgentId());
 
 		try {
-			DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 			Date timestamp = df.parse(status.getTimestamp());
 			summary.setTimestamp(timestamp);
 		} catch (ParseException e) {
