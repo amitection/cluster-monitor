@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Summary {
@@ -17,15 +17,21 @@ public class Summary {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	private Long iter;
+	
 	private Date timestamp;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	private Double batteryInitial;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="agent_id", nullable=false)
 	private Agent agent;
 	
 	private Double generation;
 	
 	private Double consumption;
+	
+	private Double borrowedFromCG;
 
 	public Long getId() {
 		return id;
@@ -34,13 +40,29 @@ public class Summary {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+	public Long getIter() {
+		return iter;
+	}
+
+	public void setIter(Long iter) {
+		this.iter = iter;
+	}
+
 	public Date getTimestamp() {
 		return timestamp;
 	}
 
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public Double getBatteryInitial() {
+		return batteryInitial;
+	}
+
+	public void setBatteryInitial(Double batteryInitial) {
+		this.batteryInitial = batteryInitial;
 	}
 
 	public Agent getAgent() {
@@ -65,5 +87,13 @@ public class Summary {
 
 	public void setConsumption(Double consumption) {
 		this.consumption = consumption;
+	}
+
+	public Double getBorrowedFromCG() {
+		return borrowedFromCG;
+	}
+
+	public void setBorrowedFromCG(Double borrowedFromCG) {
+		this.borrowedFromCG = borrowedFromCG;
 	}
 }

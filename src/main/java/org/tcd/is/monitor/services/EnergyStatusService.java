@@ -24,9 +24,21 @@ public class EnergyStatusService {
 
 	@Autowired
 	private SummaryRepository summaryRepository;
+	
+	@Autowired
+	AgentService agentService;
 
+	@Transactional
 	public void updateEnergyStatus(Status status) {
-		Summary summary = summaryRepository.findByAgentId(status.getAgentId());
+		Summary summary = summaryRepository.findByAgentIdAndIter(status.getAgentId(), status.getIter());
+		
+		if(summary == null) {
+			// Get reference to agent
+			Agent agent = agentService.getAgent(status.getAgentId());
+			
+			// Create a new summary entry
+			summary = createNewEntry(agent, status.getIter(), status.getBatteryInitial());
+		}
 
 		try {
 			DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
@@ -35,36 +47,47 @@ public class EnergyStatusService {
 		} catch (ParseException e) {
 			logger.error("", e);
 		}
-
+	
 		summary.setConsumption(summary.getConsumption() + status.getEnergyConsumption());
 		summary.setGeneration(summary.getGeneration() + status.getEnergyGeneration());
+		summary.setBorrowedFromCG(summary.getBorrowedFromCG() + status.getBorrowedFromCG());
 
 		summaryRepository.save(summary);
 	}
 
-	public Summary getEnergyStatus(Long agentId) {
-		Summary summary = summaryRepository.findByAgentId(agentId);
+	
+	public List<Summary> getEnergyStatus(Long agentId) {
+		List<Summary> summary = summaryRepository.findByAgentId(agentId);
 		return summary;
 	}
+	
 
 	@Transactional
-	public void createNewEntry(Agent agent) {
+	public Summary createNewEntry(Agent agent, Long iteration, Double batteryInitial) {
 		Summary summary = new Summary();
 		summary.setAgent(agent);
+		summary.setIter(iteration);
+		summary.setBatteryInitial(batteryInitial);
 		summary.setConsumption(0.0);
 		summary.setGeneration(0.0);
+		summary.setBorrowedFromCG(0.0);
 
-		summaryRepository.save(summary);
+		return summaryRepository.save(summary);
 	}
+	
 
-	public Summary getGridStatus() {
-		List<Summary> summaries = summaryRepository.findAll();
+	public Summary getGridStatus(Long iter) {
+		List<Summary> summaries = summaryRepository.findByIter(iter);
+		
 		Summary gridStatus = new Summary();
 		gridStatus.setConsumption(0.0);
 		gridStatus.setGeneration(0.0);
+		gridStatus.setBorrowedFromCG(0.0);
+		
 		for (Summary agentSummary : summaries) {
 			gridStatus.setConsumption(gridStatus.getConsumption() + agentSummary.getConsumption());
 			gridStatus.setGeneration(gridStatus.getGeneration() + agentSummary.getGeneration());
+			gridStatus.setBorrowedFromCG(gridStatus.getBorrowedFromCG() + agentSummary.getBorrowedFromCG());
 		}
 
 		gridStatus.setId(-1L);

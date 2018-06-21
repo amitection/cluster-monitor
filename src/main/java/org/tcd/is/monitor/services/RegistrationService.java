@@ -32,7 +32,7 @@ public class RegistrationService {
 		} else {
 			// Create a new agent
 			agent = agentRepository.save(agent);
-			energyStatusService.createNewEntry(agent);
+			//energyStatusService.createNewEntry(agent);
 			logger.debug("New Agent (name: "+agent.getName()+" id: "+agent.getId()+") registered successfully.");
 		}
 		
