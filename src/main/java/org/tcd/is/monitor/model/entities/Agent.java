@@ -1,12 +1,14 @@
 package org.tcd.is.monitor.model.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,8 +28,8 @@ public class Agent {
 	private boolean active;
 	
 	@JsonIgnore
-	@OneToOne(mappedBy="agent", fetch=FetchType.LAZY)
-	private Summary status;
+	@OneToMany(mappedBy="agent", fetch=FetchType.LAZY)
+	private List<Summary> status;
 	
 	public Long getId() {
 		return id;

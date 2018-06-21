@@ -1,5 +1,7 @@
 package org.tcd.is.monitor.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +26,10 @@ public class EnergyStatusController {
 	@Autowired
 	private EnergyStatusService energyStatusService;
 	
-	@RequestMapping(path="/grid", method = RequestMethod.GET, produces = "application/json")
-	private ResponseEntity<String> getGridStatus() {
+	@RequestMapping(path="/grid/{iteration}", method = RequestMethod.GET, produces = "application/json")
+	private ResponseEntity<String> getGridStatus(@PathVariable(name="iteration") Long iter) {
 		
-		Summary summary = energyStatusService.getGridStatus();
+		Summary summary = energyStatusService.getGridStatus(iter);
 		logger.info("Grid status retrieved successfully.");
 		return JsonUtils.getJsonForResponse(summary);
 	}
@@ -49,7 +51,7 @@ public class EnergyStatusController {
 	@RequestMapping(path="/{agentid}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<String> getEnergyStatus(@PathVariable(name="agentid") Long agentId) {
 		
-		Summary summary = energyStatusService.getEnergyStatus(agentId);
+		List<Summary> summary = energyStatusService.getEnergyStatus(agentId);
 		logger.info("Request to get energy status for agent ("+agentId+") processed successfully.");
 		return JsonUtils.getJsonForResponse(summary);
 	}

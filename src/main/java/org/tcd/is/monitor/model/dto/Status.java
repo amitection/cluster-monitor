@@ -6,9 +6,15 @@ public class Status {
 	
 	private Long agentId;
 	
-	private Double energyGeneration;
+	private Long iter;
+	
+	private Double batteryInitial;
 	
 	private Double energyConsumption;
+	
+	private Double energyGeneration;
+	
+	private Double borrowedFromCG;
 
 	public String getTimestamp() {
 		return timestamp;
@@ -26,12 +32,20 @@ public class Status {
 		this.agentId = agentId;
 	}
 
-	public Double getEnergyGeneration() {
-		return energyGeneration;
+	public Long getIter() {
+		return iter;
 	}
 
-	public void setEnergyGeneration(Double energyGeneration) {
-		this.energyGeneration = energyGeneration;
+	public void setIter(Long iter) {
+		this.iter = iter;
+	}
+
+	public Double getBatteryInitial() {
+		return batteryInitial;
+	}
+
+	public void setBatteryInitial(Double batteryInitial) {
+		this.batteryInitial = batteryInitial;
 	}
 
 	public Double getEnergyConsumption() {
@@ -40,5 +54,21 @@ public class Status {
 
 	public void setEnergyConsumption(Double energyConsumption) {
 		this.energyConsumption = energyConsumption;
+	}
+
+	public Double getEnergyGeneration() {
+		return energyGeneration;
+	}
+
+	public void setEnergyGeneration(Double energyGeneration) {
+		this.energyGeneration = energyGeneration;
+	}
+
+	public Double getBorrowedFromCG() {
+		return borrowedFromCG;
+	}
+
+	public void setBorrowedFromCG(Double borrowedFromCG) {
+		this.borrowedFromCG = borrowedFromCG;
 	}
 }
