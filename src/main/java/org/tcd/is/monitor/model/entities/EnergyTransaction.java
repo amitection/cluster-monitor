@@ -21,6 +21,8 @@ public class EnergyTransaction {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	private Long iter;
+	
 	private Date timestamp;
 	
 	@JsonIdentityReference(alwaysAsId=true)
@@ -45,6 +47,14 @@ public class EnergyTransaction {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getIter() {
+		return iter;
+	}
+
+	public void setIter(Long iter) {
+		this.iter = iter;
 	}
 
 	public Date getTimestamp() {

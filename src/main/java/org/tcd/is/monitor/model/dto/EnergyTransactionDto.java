@@ -3,6 +3,8 @@ package org.tcd.is.monitor.model.dto;
 
 public class EnergyTransactionDto {
 
+	private Long iter;
+	
 	private String timestamp;
 
 	private Long sellerId;
@@ -12,6 +14,15 @@ public class EnergyTransactionDto {
 	private Double price;
 	
 	private Double amount;
+	
+
+	public Long getIter() {
+		return iter;
+	}
+
+	public void setIter(Long iter) {
+		this.iter = iter;
+	}
 
 	public String getTimestamp() {
 		return timestamp;

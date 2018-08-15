@@ -39,7 +39,8 @@ public class EnergyTransactionService {
 		} catch (ParseException e) {
 			logger.error("",e);
 		}
-
+		
+		et.setIter(transactionDto.getIter());
 		et.setSeller(agentRepository.findOne(transactionDto.getSellerId()));
 		et.setBuyer(agentRepository.findByName(transactionDto.getBuyerName()));
 		et.setAmount(transactionDto.getAmount());
